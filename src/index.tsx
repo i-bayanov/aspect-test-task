@@ -6,6 +6,8 @@ import { Provider } from 'react-redux';
 import { store } from './store/store';
 import App from './App';
 
+import './index.css';
+
 const rootContainer = document.getElementById('root')!;
 const root = createRoot(rootContainer);
 

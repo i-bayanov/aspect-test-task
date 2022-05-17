@@ -1,0 +1,42 @@
+.App {
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+  padding: 10px;
+  width: 100%;
+}
+
+.App form {
+  display: flex;
+  justify-content: center;
+  align-items: flex-end;
+  width: 100%;
+}
+
+.App form>* {
+  margin: 0 10px;
+}
+
+.App form :first-child {
+  margin-left: 0;
+}
+
+.App form :last-child {
+  margin-right: 0;
+}
+
+.App form label,
+.App form input {
+  display: block;
+  width: 100%;
+}
+
+.content_wrapper {
+  border: 1px solid black;
+  width: 100%;
+  max-width: 1200px;
+  min-height: 600px;
+  margin-top: 10px;
+  padding: 10px;
+  background-color: white;
+}

@@ -3,15 +3,11 @@ export interface IAction {
   payload: {};
 };
 
-export interface IContent extends Array<IPanel | ILabel | IButton> {
-  [index: number]: IPanel | ILabel | IButton;
-};
-
 export interface IPanelProps {
   width: number;
   height: number;
   visible: boolean;
-  content?: IContent;
+  content?: Array<IPanel | ILabel | IButton>;
 };
 
 export interface IPanel {

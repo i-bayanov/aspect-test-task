@@ -8,7 +8,7 @@ export default function App() {
 
   return (
     <div className="App">
-      {content.map((item, idx) => <Content key={idx} {...item}/>)}
+      {content.map((item, idx) => <Content key={idx} {...item} />)}
     </div>
   );
 }

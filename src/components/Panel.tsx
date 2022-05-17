@@ -7,10 +7,10 @@ export default function Panel(props: IPanelProps) {
 
   return (
     <div
-      style={{ width, height , border: '1px solid black'}}
+      style={{ width, height, border: '1px solid black' }}
       hidden={!visible}
     >
-      {content && content.map((item, idx) => <Content key={idx} {...item}/>)}
+      {content && content.map((item, idx) => <Content key={idx} {...item} />)}
     </div>
   );
 }

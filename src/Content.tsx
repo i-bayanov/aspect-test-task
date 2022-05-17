@@ -9,11 +9,11 @@ export default function Content(item: IPanel | ILabel | IButton) {
 
   switch (type) {
     case 'panel':
-      return <Panel {...props}/>;
+      return <Panel {...props} />;
     case 'label':
-      return <Label {...props}/>;
+      return <Label {...props} />;
     case 'button':
-      return <Button {...props}/>;
+      return <Button {...props} />;
     default:
       return null;
   }

@@ -1,6 +1,6 @@
-import { IContent } from "../interfaces-and-types";
+import { IPanel, ILabel, IButton } from "../interfaces-and-types";
 
-const MockContent: IContent = [
+const MockContent: Array<IPanel | ILabel | IButton> = [
   {
     type: 'panel',
     props: {
@@ -13,7 +13,7 @@ const MockContent: IContent = [
           props: {
             caption: 'test inside panel',
             visible: true,
-          }
+          },
         },
         {
           type: 'button',
@@ -22,9 +22,26 @@ const MockContent: IContent = [
             height: 50,
             visible: true,
             caption: 'button inside panel',
-          }
-        }
-      ]
+          },
+        },
+        {
+          type: 'panel',
+          props: {
+            width: 200,
+            height: 100,
+            visible: false,
+            content: [
+              {
+                type: 'label',
+                props: {
+                  caption: 'one more text',
+                  visible: true,
+                },
+              },
+            ],
+          },
+        },
+      ],
     },
   },
   {

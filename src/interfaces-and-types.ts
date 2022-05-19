@@ -1,6 +1,9 @@
 export interface IAction {
   type: string;
-  payload: {};
+  payload: {
+    destination: string[];
+    newValue: any;
+  };
 };
 
 export interface IPanelProps {

@@ -21,20 +21,18 @@ export default function Form() {
   const submitForm = (event: FormEvent) => {
     event.preventDefault();
 
-    const results = formData.path
-      .split('.')
-      .map((el) => el.split('['))
-      .flat()
-      .map((el) => el.split(']'))
-      .flat()
-      .filter((el) => el)
-      .slice(1);
+    const results = formData.path.split(/\.|\[|\]/g).filter((el) => el).slice(1);
+
+    let newValue: number | string | boolean = formData.newValue;
+    newValue = Number(newValue) || newValue;
+    newValue = newValue === 'true' ? true : newValue;
+    newValue = newValue === 'false' ? false : newValue;
 
     dispatch({
       type: 'content/edit',
       payload: {
         destination: results,
-        newValue: formData.newValue,
+        newValue,
       },
     });
 

@@ -2,7 +2,7 @@ export interface IAction {
   type: string;
   payload: {
     destination: string[];
-    newValue: any;
+    newValue: number | string | boolean;
   };
 };
 

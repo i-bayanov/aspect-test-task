@@ -6,10 +6,13 @@ import Panel from "./components/Panel";
 
 export default function Content(item: IPanel | ILabel | IButton) {
   const { type, props } = item;
+  let content: Array<IPanel | ILabel | IButton> = [];
+
+  if ('content' in item && item.content) content = item.content;
 
   switch (type) {
     case 'panel':
-      return <Panel {...props} />;
+      return <Panel {...props} content={content} />;
     case 'label':
       return <Label {...props} />;
     case 'button':

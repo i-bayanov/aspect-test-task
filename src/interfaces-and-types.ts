@@ -10,12 +10,12 @@ export interface IPanelProps {
   width: number;
   height: number;
   visible: boolean;
-  content?: Array<IPanel | ILabel | IButton>;
 };
 
 export interface IPanel {
   type: 'panel';
   props: IPanelProps;
+  content?: Array<IPanel | ILabel | IButton>;
 };
 
 export interface ILabelProps {

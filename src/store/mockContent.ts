@@ -60,6 +60,14 @@ const MockContent: Array<IPanel | ILabel | IButton> = [
       caption: 'button',
     },
   },
+  {
+    type: 'panel',
+    props: {
+      width: 200,
+      height: 100,
+      visible: true,
+    },
+  },
 ];
 
 export default MockContent;

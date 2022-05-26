@@ -16,17 +16,29 @@ export default function contentReducer(
   }
 }
 
-function mapContent(content: object, path: string[], newValue: number | string | boolean) {
+function mapContent(
+    content: object,
+    path: string[],
+    newValue: number | string | boolean | IPanel | ILabel | IButton,
+  ) {
   const newContent = Array.isArray(content) ? [...content] : {...content};
 
+  if (Array.isArray(newContent) && !path.length) {
+    newContent.push(newValue);
+
+    return newContent;
+  }
+  
   // @ts-ignore element implicitly has an 'any' type
   if (typeof newContent[path[0]] === 'object') {
     // @ts-ignore element implicitly has an 'any' type
     newContent[path[0]] = mapContent(newContent[path[0]], path.slice(1), newValue);
-  } else {
-    // @ts-ignore element implicitly has an 'any' type
-    newContent[path[0]] = newValue;
+
+    return newContent;
   }
+
+  // @ts-ignore element implicitly has an 'any' type
+  newContent[path[0]] = newValue;
 
   return newContent;
 }

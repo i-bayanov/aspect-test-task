@@ -2,7 +2,7 @@ export interface IAction {
   type: string;
   payload: {
     destination: string[];
-    newValue: number | string | boolean;
+    newValue: number | string | boolean | IPanel | ILabel | IButton;
   };
 };
 

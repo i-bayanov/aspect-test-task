@@ -18,12 +18,15 @@ export default function contentReducer(
 
 function mapContent(content: object, path: string[], newValue: number | string | boolean) {
   const newContent = Array.isArray(content) ? [...content] : {...content};
- 
+
+  // @ts-ignore element implicitly has an 'any' type
   if (typeof newContent[path[0]] === 'object') {
-    newContent[path[0]] = mapContent(newContent[path[0]], path.slice(1), newValue)
+    // @ts-ignore element implicitly has an 'any' type
+    newContent[path[0]] = mapContent(newContent[path[0]], path.slice(1), newValue);
   } else {
+    // @ts-ignore element implicitly has an 'any' type
     newContent[path[0]] = newValue;
   }
-  
+
   return newContent;
 }

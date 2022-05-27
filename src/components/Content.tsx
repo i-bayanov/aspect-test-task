@@ -1,8 +1,8 @@
-import { IButton, ILabel, IPanel } from "./interfaces-and-types";
+import { IButton, ILabel, IPanel } from "../interfaces-and-types";
 
-import Button from "./components/Button";
-import Label from "./components/Label";
-import Panel from "./components/Panel";
+import Button from "./Button";
+import Label from "./Label";
+import Panel from "./Panel";
 
 export default function Content(item: IPanel | ILabel | IButton) {
   const { type, props } = item;

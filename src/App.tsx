@@ -2,7 +2,7 @@ import { useAppSelector } from './store/hooks';
 import { RootState } from './store/store';
 
 import Form from './components/Form';
-import Content from './Content';
+import Content from './components/Content';
 
 import './App.css';
 

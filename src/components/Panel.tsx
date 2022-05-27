@@ -1,6 +1,6 @@
 import { IButton, ILabel, IPanel, IPanelProps } from "../interfaces-and-types";
 
-import Content from "../Content";
+import Content from "./Content";
 
 export default function Panel(props: IPanelProps & { content: Array<IPanel | ILabel | IButton> }) {
   const { width, height, visible, content } = props;

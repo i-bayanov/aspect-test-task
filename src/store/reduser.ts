@@ -7,8 +7,6 @@ export default function contentReducer(
   action: IAction,
 ) {
   switch (action.type) {
-    case 'content/add':
-      return store;
     case 'content/edit':
       return mapContent(store, action.payload.destination, action.payload.newValue) as Array<IPanel | ILabel | IButton>;
     default:

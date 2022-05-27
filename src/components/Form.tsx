@@ -1,6 +1,6 @@
 import { FormEvent, useState } from 'react';
 
-import { useAppDispatch } from '../store/hooks';
+import { useAppDispatch, useAppSelector } from '../store/hooks';
 
 import { IButton, ILabel, IPanel } from '../interfaces-and-types';
 
@@ -20,23 +20,39 @@ export default function Form() {
   const [formData, setFormData] = useState<FormData>({ path: '', newValue: '' });
   const [inputValidity, setInputValidity] = useState<InputValidity>({ path: '', newValue: '' });
   const dispatch = useAppDispatch();
+  const content = useAppSelector((state) => state);
 
   const submitForm = (event: FormEvent) => {
     event.preventDefault();
 
-    const results = formData.path.split(/\.|\[|\]/g).filter((el) => el).slice(1);
+    const path = formData.path.split(/\.|\[|\]/g).filter((el) => el).slice(1);
+    const typeOfValueOnPath = validatePath(content, path);
+
+    if (!typeOfValueOnPath) {
+      setInputValidity({ ...inputValidity, path: 'invalid' });
+
+      return;
+    }
 
     let newValue: number | string | boolean | IPanel | ILabel | IButton = formData.newValue;
-    newValue = Number(newValue) || newValue;
-    newValue = newValue === 'true' ? true : newValue;
-    newValue = newValue === 'false' ? false : newValue;
-    // @ts-ignore type error
     newValue = tryToParseStr(newValue) || newValue;
+
+    if (typeOfValueOnPath !== 'string') {
+      newValue = Number(newValue) || newValue;
+      newValue = newValue === 'true' ? true : newValue;
+      newValue = newValue === 'false' ? false : newValue;
+    }
+
+    if (typeof newValue !== typeOfValueOnPath) {
+      setInputValidity({ ...inputValidity, newValue: 'invalid' });
+
+      return;
+    }
 
     dispatch({
       type: 'content/edit',
       payload: {
-        destination: results,
+        destination: path,
         newValue,
       },
     });
@@ -75,8 +91,18 @@ export default function Form() {
         />
       </label>
       <button type='submit' className='submit'>Применить</button>
-    </form >
+    </form>
   );
+}
+
+function validatePath(state: object, pathArr: string[]): string | Boolean {
+  if (!pathArr.length) return Array.isArray(state) ? 'object' : false;
+  if (!(pathArr[0] in state)) return false;
+  // @ts-ignore element implicitly has an 'any' type
+  if (pathArr.length === 1) return Array.isArray(state[pathArr[0]]) ? 'object' : typeof state[pathArr[0]];
+
+  // @ts-ignore element implicitly has an 'any' type
+  return validatePath(state[pathArr[0]], pathArr.slice(1));
 }
 
 function tryToParseStr(str: string) {
@@ -84,7 +110,7 @@ function tryToParseStr(str: string) {
   const REprops = /(?:width: (?<width>\d*))|(?:height: (?<height>\d*))|(?:caption: '(?<caption>[\w ]*)')|(?:visible: (?<visible>\w*))/gi;
 
   // @ts-ignore object is of type unknown
-  const { type, propsGroup, contentGroup } = Array.from(str.matchAll(REcontent))[0].groups;
+  const { type, propsGroup, contentGroup } = Array.from(str.matchAll(REcontent))[0]?.groups || { type: null, propsGroup: null, contentGroup: null };
 
   if (!type || !propsGroup) return false;
 
